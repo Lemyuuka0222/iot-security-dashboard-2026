@@ -121,10 +121,10 @@ function updateDoorStatus(state) {
     text.style.color = '#00cc66';
   } else {
     icon.className = 'bi bi-door-closed-fill display-1';
-    icon.style.color = '#004d00';
+    icon.style.color = '#009944';
     text.textContent = 'Cerrada';
     text.className = '';
-    text.style.color = '#004d00';
+    text.style.color = '#009944';
   }
 }
 
