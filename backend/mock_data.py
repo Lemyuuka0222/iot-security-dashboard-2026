@@ -17,18 +17,18 @@ TYPES = ["entry", "exit"]
 
 def send_to_firestore(collection, data):
     now = datetime.now()
-    body = {
-        "fields": {
-            "person": {"stringValue": data["person"]},
-            "type": {"stringValue": data["type"]},
-            "method": {"stringValue": data["method"]},
-            "helmet": {"booleanValue": data["helmet"]},
-            "status": {"stringValue": data["status"]},
-            "timestamp": {"timestampValue": now.isoformat() + "Z"}
-        }
-    }
+    fields = {"timestamp": {"timestampValue": now.isoformat() + "Z"}}
+
+    for key, value in data.items():
+        if isinstance(value, bool):
+            fields[key] = {"booleanValue": value}
+        elif isinstance(value, int):
+            fields[key] = {"integerValue": str(value)}
+        else:
+            fields[key] = {"stringValue": str(value)}
+
     url = f"{FIREBASE_URL}/{collection}?key={API_KEY}"
-    r = requests.post(url, json=body)
+    r = requests.post(url, json={"fields": fields})
     return r.status_code == 200
 
 print("Enviando datos a Firebase Firestore...")
