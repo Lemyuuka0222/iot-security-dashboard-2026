@@ -1,6 +1,6 @@
-const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:')
     ? 'http://localhost:8000'
-    : 'https://tu-backend-en-produccion.com';
+    : 'http://192.168.40.11:8000';
 
 let logs = [];
 let alerts = [];
