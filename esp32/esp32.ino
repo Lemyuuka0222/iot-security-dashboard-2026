@@ -4,6 +4,7 @@
 #include <Wire.h>
 #include <hd44780.h>
 #include <hd44780ioClass/hd44780_I2Cexp.h>
+#include <Adafruit_NeoPixel.h>
 
 hd44780_I2Cexp lcd;
 
@@ -11,15 +12,15 @@ hd44780_I2Cexp lcd;
 const char* ssid = "WIFI BAQUE";
 const char* password = "Davidba1970";
 
-// Backend
-const char* serverUrl = "http://192.168.40.11:8000";
+// Firebase
+const char* projectId = "iot-security-dashboard-f4c31";
+const char* apiKey = "AIzaSyBaCk0gP31rLu1nN-p1h_g9eDvl8H1EeKA";
 
 // Servo
 #define SERVO_PIN 13
 Servo doorServo;
 
-// RGB LED integrado ESP32-S3
-#include <Adafruit_NeoPixel.h>
+// RGB LED
 #define RGB_PIN 48
 #define NUM_LEDS 1
 Adafruit_NeoPixel rgb(NUM_LEDS, RGB_PIN, NEO_GRB + NEO_KHZ800);
@@ -27,6 +28,22 @@ Adafruit_NeoPixel rgb(NUM_LEDS, RGB_PIN, NEO_GRB + NEO_KHZ800);
 void setRGB(uint8_t r, uint8_t g, uint8_t b) {
   rgb.setPixelColor(0, rgb.Color(r, g, b));
   rgb.show();
+}
+
+bool sendToFirestore(String collection, String jsonBody) {
+  HTTPClient http;
+  String url = "https://firestore.googleapis.com/v1/projects/";
+  url += projectId;
+  url += "/databases/(default)/documents/";
+  url += collection;
+  url += "?key=";
+  url += apiKey;
+
+  http.begin(url);
+  http.addHeader("Content-Type", "application/json");
+  int httpCode = http.POST(jsonBody);
+  http.end();
+  return httpCode == 200;
 }
 
 void setup() {
@@ -59,7 +76,7 @@ void setup() {
     lcd.setCursor(0, 0);
     lcd.print("IoT Security");
     lcd.setCursor(0, 1);
-    lcd.print("WiFi Conectado");
+    lcd.print("Firebase listo");
   } else {
     setRGB(255, 0, 0);
     lcd.setCursor(0, 0);
@@ -90,6 +107,9 @@ void abrirPuerta() {
   setRGB(0, 255, 0);
   doorServo.write(90);
 
+  String json = "{\"fields\":{\"state\":{\"stringValue\":\"open\"},\"updatedAt\":{\"timestampValue\":\"2024-01-01T00:00:00Z\"}}}";
+  sendToFirestore("controls/door", json);
+
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Puerta ABIERTA");
@@ -101,6 +121,9 @@ void cerrarPuerta() {
   Serial.println("Cerrando puerta...");
   setRGB(255, 0, 0);
   doorServo.write(0);
+
+  String json = "{\"fields\":{\"state\":{\"stringValue\":\"closed\"},\"updatedAt\":{\"timestampValue\":\"2024-01-01T00:00:00Z\"}}}";
+  sendToFirestore("controls/door", json);
 
   lcd.clear();
   lcd.setCursor(0, 0);
