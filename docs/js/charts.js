@@ -9,8 +9,8 @@ function initHourlyChart() {
       datasets: [{
         label: 'Accesos',
         data: Array(24).fill(0),
-        backgroundColor: 'rgba(0, 212, 255, 0.7)',
-        borderColor: '#00d4ff',
+        backgroundColor: 'rgba(0, 204, 102, 0.7)',
+        borderColor: '#00cc66',
         borderWidth: 1
       }]
     },
@@ -25,12 +25,12 @@ function initHourlyChart() {
       scales: {
         x: {
           ticks: { color: '#e0e0e0', maxRotation: 45, autoSkip: true, maxTicksLimit: 12 },
-          grid: { color: '#2a2a5e' }
+          grid: { color: '#1a3a1a' }
         },
         y: {
           beginAtZero: true,
           ticks: { color: '#e0e0e0', stepSize: 1 },
-          grid: { color: '#2a2a5e' }
+          grid: { color: '#1a3a1a' }
         }
       }
     }
@@ -46,8 +46,8 @@ function initMethodChart() {
       labels: ['RFID', 'Facial', 'Manual'],
       datasets: [{
         data: [0, 0, 0],
-        backgroundColor: ['#00d4ff', '#00e676', '#ffab00'],
-        borderColor: '#1a1a3e',
+        backgroundColor: ['#00cc66', '#00994d', '#336600'],
+        borderColor: '#0d0d0d',
         borderWidth: 2
       }]
     },

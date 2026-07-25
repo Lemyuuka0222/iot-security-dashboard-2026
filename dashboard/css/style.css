@@ -1,6 +1,11 @@
 body {
     background: #050505;
     color: #cccccc;
+}
+
+.text-muted {
+    color: #446644 !important;
+}
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 

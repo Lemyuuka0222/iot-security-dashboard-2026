@@ -8,10 +8,16 @@ function updateConnectionStatus(connected) {
   const el = document.getElementById('connectionStatus');
   if (connected) {
     el.textContent = 'Conectado';
-    el.className = 'badge bg-success';
+    el.className = 'badge';
+    el.style.background = '#004400';
+    el.style.color = '#00cc66';
+    el.style.border = '1px solid #00cc66';
   } else {
     el.textContent = 'Desconectado';
-    el.className = 'badge bg-warning';
+    el.className = 'badge';
+    el.style.background = '#2a0000';
+    el.style.color = '#ff6666';
+    el.style.border = '1px solid #cc3333';
   }
 }
 
@@ -35,7 +41,7 @@ function renderLogs() {
       <td>${time}</td>
       <td><strong>${log.person}</strong></td>
       <td>${typeLabels[log.type] || log.type}</td>
-      <td><span class="badge bg-info">${methodLabels[log.method] || log.method}</span></td>
+      <td><span class="badge" style="background:#003300;color:#00cc66;border:1px solid #00cc66;">${methodLabels[log.method] || log.method}</span></td>
       <td>${helmetIcon}</td>
       <td class="${statusClass} fw-bold">${statusText}</td>
     </tr>`;
@@ -108,13 +114,17 @@ function updateDoorStatus(state) {
   const icon = document.querySelector('#doorStatus .bi');
   const text = document.getElementById('doorStateText');
   if (state === 'open') {
-    icon.className = 'bi bi-door-open-fill display-1 text-success';
+    icon.className = 'bi bi-door-open-fill display-1';
+    icon.style.color = '#00cc66';
     text.textContent = 'Abierta';
-    text.className = 'text-success';
+    text.className = '';
+    text.style.color = '#00cc66';
   } else {
-    icon.className = 'bi bi-door-closed-fill display-1 text-secondary';
+    icon.className = 'bi bi-door-closed-fill display-1';
+    icon.style.color = '#004d00';
     text.textContent = 'Cerrada';
-    text.className = 'text-secondary';
+    text.className = '';
+    text.style.color = '#004d00';
   }
 }
 
