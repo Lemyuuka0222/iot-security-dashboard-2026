@@ -1,0 +1,109 @@
+body {
+    background: #0f0f23;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    border-bottom: 2px solid #00d4ff;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+.stats-card {
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.stats-icon {
+    font-size: 2.5rem;
+    opacity: 0.5;
+}
+
+.card {
+    background: #1a1a3e;
+    border: 1px solid #2a2a5e;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+    background: #252555;
+    border-bottom: 1px solid #2a2a5e;
+    color: #00d4ff;
+    font-weight: 600;
+}
+
+.table {
+    color: #e0e0e0;
+    font-size: 0.9rem;
+}
+
+.table-dark {
+    background: #1a1a3e;
+}
+
+#logsTable tbody tr:hover {
+    background: rgba(0, 212, 255, 0.1);
+}
+
+#alertsList {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.alert-item {
+    background: rgba(255, 0, 0, 0.1);
+    border-left: 4px solid #ff4444;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.door-status {
+    padding: 20px;
+}
+
+.btn-lg {
+    padding: 15px 40px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+#connectionStatus {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+}
+
+canvas {
+    max-height: 250px;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a3e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2a2a5e;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #3a3a6e;
+}
