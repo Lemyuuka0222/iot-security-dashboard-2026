@@ -3,7 +3,7 @@ import random
 import time
 from datetime import datetime
 
-API_URL = "http://localhost:8000"
+API_URL = "https://iot-security-dashboard-2026.onrender.com"
 
 PERSONAS = [
     "Carlos Lopez", "Maria Garcia", "Juan Perez", "Ana Martinez",

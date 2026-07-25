@@ -1,3 +1,1 @@
-// Configuracion del API backend
-// Cambia esta URL cuando despliegues el backend en Render
-const BACKEND_URL = 'http://localhost:8000';
+const BACKEND_URL = 'https://iot-security-dashboard-2026.onrender.com';
