@@ -43,10 +43,10 @@ function initMethodChart() {
   window.methodChartInstance = new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: ['RFID', 'Facial', 'Manual'],
+      labels: ['RFID', 'Facial', 'Manual', 'Doble'],
       datasets: [{
-        data: [0, 0, 0],
-        backgroundColor: ['#00cc66', '#00994d', '#336600'],
+        data: [0, 0, 0, 0],
+        backgroundColor: ['#00cc66', '#00994d', '#336600', '#99ffcc'],
         borderColor: '#0d0d0d',
         borderWidth: 2
       }]

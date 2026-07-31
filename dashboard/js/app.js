@@ -35,7 +35,7 @@ function renderLogs() {
     const helmetIcon = log.helmet ? '<i class="bi bi-shield-check text-success"></i>' : '<i class="bi bi-shield-exclamation text-danger"></i>';
     const statusClass = log.status === 'authorized' ? 'text-success' : 'text-danger';
     const statusText = log.status === 'authorized' ? 'Autorizado' : 'Denegado';
-    const methodLabels = { rfid: 'RFID', facial: 'Facial', manual: 'Manual' };
+    const methodLabels = { rfid: 'RFID', facial: 'Facial', manual: 'Manual', dual: 'Doble' };
     const typeLabels = { entry: 'Entrada', exit: 'Salida' };
     return `<tr>
       <td>${time}</td>
@@ -100,13 +100,14 @@ function updateHourlyChart() {
 
 function updateMethodChart() {
   if (!window.methodChartInstance) return;
-  let rfid = 0, facial = 0, manual = 0;
+  let rfid = 0, facial = 0, manual = 0, dual = 0;
   allLogs.forEach(log => {
     if (log.method === 'rfid') rfid++;
     else if (log.method === 'facial') facial++;
     else if (log.method === 'manual') manual++;
+    else if (log.method === 'dual') dual++;
   });
-  window.methodChartInstance.data.datasets[0].data = [rfid, facial, manual];
+  window.methodChartInstance.data.datasets[0].data = [rfid, facial, manual, dual];
   window.methodChartInstance.update();
 }
 

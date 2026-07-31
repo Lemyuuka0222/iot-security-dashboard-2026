@@ -14,7 +14,7 @@ function setClock() {
 }
 
 function showView(id) {
-    ['viewIdle', 'viewScanning', 'viewRegisterFace', 'viewRegisterRfid', 'viewResult']
+    ['viewIdle', 'viewScanning', 'viewRegisterFace', 'viewRegisterRfid', 'viewVerifyRfid', 'viewResult']
         .forEach(v => $(v).classList.add('hidden'));
     $(id).classList.remove('hidden');
 }
@@ -26,9 +26,9 @@ function setPill(text, kind) {
 }
 
 function highlightLegend(phase) {
-    $('cardLogin').classList.toggle('active', phase === 'scanning_face');
+    $('cardLogin').classList.toggle('active', phase === 'scanning_face' || phase === 'verify_rfid');
     $('cardRegister').classList.toggle('active', phase === 'register_face' || phase === 'register_rfid');
-    $('cardCancel').classList.toggle('active', phase === 'scanning_face' || phase === 'register_face' || phase === 'register_rfid');
+    $('cardCancel').classList.toggle('active', phase === 'scanning_face' || phase === 'register_face' || phase === 'register_rfid' || phase === 'verify_rfid');
 }
 
 function renderRecent(recent) {
@@ -37,7 +37,7 @@ function renderRecent(recent) {
         ul.innerHTML = '<li style="color:var(--text-dim)">Sin actividad reciente</li>';
         return;
     }
-    const methodLabels = { rfid: 'RFID', facial: 'FACIAL', manual: 'MANUAL' };
+    const methodLabels = { rfid: 'RFID', facial: 'FACIAL', manual: 'MANUAL', dual: 'DOBLE' };
     ul.innerHTML = recent.map(r => `
         <li>
             <span>
@@ -105,10 +105,16 @@ function render(state) {
         else if (state.phase === 'scanning_face') showView('viewScanning');
         else if (state.phase === 'register_face') showView('viewRegisterFace');
         else if (state.phase === 'register_rfid') showView('viewRegisterRfid');
+        else if (state.phase === 'verify_rfid') showView('viewVerifyRfid');
         else if (state.phase === 'result') showView('viewResult');
     }
     if (state.phase === 'result') renderResult(state.result || {});
     if (state.phase === 'register_rfid') renderRegisterRfid(state);
+    if (state.phase === 'verify_rfid' && state.verify) {
+        $('verifyName').innerHTML = state.verify.name
+            ? `Persona detectada: <strong>${state.verify.name}</strong>`
+            : 'Confirmando identidad...';
+    }
 }
 
 async function poll() {

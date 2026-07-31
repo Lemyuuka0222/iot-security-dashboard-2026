@@ -85,7 +85,8 @@ void openDoor() {
 void showResult(String resp) {
   bool authorized = resp.indexOf("\"authorized\":true") >= 0;
   bool registered = resp.indexOf("\"registered\":true") >= 0;
-  bool nextStepRfid = resp.indexOf("\"phase\":\"register_rfid\"") >= 0;
+  bool nextStepRfid = resp.indexOf("\"phase\":\"register_rfid\"") >= 0 ||
+                      resp.indexOf("\"phase\":\"verify_rfid\"") >= 0;
   bool cancelled = resp.indexOf("cancelada") >= 0;
 
   String name = "Sistema";
@@ -97,7 +98,7 @@ void showResult(String resp) {
 
   if (nextStepRfid) {
     setRGB(255, 165, 0);
-    lcdLines("Acerca tarjeta", "RFID...");
+    lcdLines("Acerca tarjeta", "para confirmar...");
   } else if (authorized && registered) {
     setRGB(0, 255, 0);
     lcdLines("REGISTRADO", name.c_str());
@@ -134,7 +135,7 @@ void checkRFID() {
   rfid.PICC_HaltA();
   rfid.PCD_StopCrypto1();
   setRGB(0, 100, 255);
-  lcdLines("Tarjeta detectada", uid.c_str());
+  lcdLines("Tarjeta leida", "Verificando rostro...");
   sendAction("rfid", uid);
 }
 
